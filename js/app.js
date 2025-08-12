@@ -2,6 +2,7 @@
 let app = {
     cart: [],
     currentCategory: 'coffees',
+    customerName: '',
     
     init() {
         this.loadCart();
@@ -14,7 +15,6 @@ let app = {
     setupEventListeners() {
         // Welcome buttons
         document.getElementById('startOrderBtn')?.addEventListener('click', () => this.showScreen('menu'));
-        document.getElementById('viewMenuBtn')?.addEventListener('click', () => this.showScreen('menu'));
 
         // Navigation
         document.getElementById('backToWelcome')?.addEventListener('click', () => this.showScreen('welcome'));
@@ -24,10 +24,14 @@ let app = {
 
         // Cart actions
         document.getElementById('clearCartBtn')?.addEventListener('click', () => this.clearCart());
-        document.getElementById('proceedToPaymentBtn')?.addEventListener('click', () => this.showScreen('payment'));
+        document.getElementById('proceedToCustomerInfoBtn')?.addEventListener('click', () => this.showScreen('customer-info'));
+
+        // Customer info
+        document.getElementById('backToCart')?.addEventListener('click', () => this.showScreen('cart'));
+        document.getElementById('proceedToPaymentBtn')?.addEventListener('click', () => this.validateAndProceedToPayment());
 
         // Payment
-        document.getElementById('backToCart')?.addEventListener('click', () => this.showScreen('cart'));
+        document.getElementById('backToCustomerInfo')?.addEventListener('click', () => this.showScreen('customer-info'));
         document.getElementById('confirmPaymentBtn')?.addEventListener('click', () => this.processPayment());
 
         // Confirmation
@@ -49,6 +53,11 @@ let app = {
 
         // Theme toggle
         document.getElementById('themeBtn')?.addEventListener('click', () => this.toggleTheme());
+
+        // Customer name input validation
+        document.getElementById('customerName')?.addEventListener('input', (e) => {
+            this.validateCustomerName(e.target);
+        });
     },
 
     showScreen(screenId) {
@@ -64,6 +73,8 @@ let app = {
                 this.loadProducts();
             } else if (screenId === 'cart') {
                 this.loadCartItems();
+            } else if (screenId === 'customer-info') {
+                this.loadCustomerInfoOrderPreview();
             } else if (screenId === 'payment') {
                 this.loadPaymentSummary();
             }
@@ -264,21 +275,50 @@ let app = {
     loadPaymentSummary() {
         const orderSummaryItems = document.getElementById('orderSummaryItems');
         const orderTotal = document.getElementById('orderTotal');
+        const paymentCustomerName = document.getElementById('paymentCustomerName');
         
-        if (!orderSummaryItems || !orderTotal) return;
+        if (orderSummaryItems) {
+            orderSummaryItems.innerHTML = this.cart.map(item => `
+                <div class="order-item">
+                    <div class="item-info">
+                        <span class="item-name">${item.name}</span>
+                        <span class="item-quantity">x${item.quantity}</span>
+                    </div>
+                    <span class="item-price">${Utils.formatCurrency(item.price * item.quantity)}</span>
+                </div>
+            `).join('');
+        }
+        
+        if (orderTotal) {
+            const total = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            orderTotal.textContent = Utils.formatCurrency(total);
+        }
 
-        const itemsHtml = this.cart.map(item => `
-            <div class="order-item">
-                <div class="order-item-name">${item.name}</div>
-                <div class="order-item-quantity">x${item.quantity}</div>
-                <div class="order-item-price">${Utils.formatCurrency(item.price * item.quantity)}</div>
-            </div>
-        `).join('');
+        if (paymentCustomerName) {
+            paymentCustomerName.textContent = this.customerName || 'Cliente';
+        }
+    },
 
-        const total = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-        orderSummaryItems.innerHTML = itemsHtml;
-        orderTotal.textContent = Utils.formatCurrency(total);
+    loadCustomerInfoOrderPreview() {
+        const previewItems = document.getElementById('customerInfoOrderPreview');
+        const previewTotal = document.getElementById('customerInfoTotal');
+        
+        if (previewItems) {
+            previewItems.innerHTML = this.cart.map(item => `
+                <div class="preview-item">
+                    <div>
+                        <span class="preview-item-name">${item.name}</span>
+                        <span class="preview-item-quantity">x${item.quantity}</span>
+                    </div>
+                    <span class="preview-item-price">${Utils.formatCurrency(item.price * item.quantity)}</span>
+                </div>
+            `).join('');
+        }
+        
+        if (previewTotal) {
+            const total = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            previewTotal.textContent = Utils.formatCurrency(total);
+        }
     },
 
     selectPaymentMethod(method) {
@@ -321,7 +361,8 @@ let app = {
                 price: item.price
             })),
             total: this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-            paymentMethod: paymentMethod
+            paymentMethod: paymentMethod,
+            customerName: this.customerName || 'Cliente'
         };
 
         // Save order to localStorage for staff area
@@ -333,7 +374,8 @@ let app = {
             items: orderData.items,
             total: orderData.total,
             timestamp: new Date().toISOString(),
-            paymentMethod: orderData.paymentMethod
+            paymentMethod: orderData.paymentMethod,
+            customerName: orderData.customerName
         };
         
         existingOrders.unshift(newOrder);
@@ -344,8 +386,17 @@ let app = {
 
     startNewOrder() {
         this.cart = [];
+        this.customerName = '';
         this.saveCart();
         this.updateCartDisplay();
+        
+        // Reset customer name input
+        const customerNameInput = document.getElementById('customerName');
+        if (customerNameInput) {
+            customerNameInput.value = '';
+            customerNameInput.classList.remove('is-valid', 'is-invalid');
+        }
+        
         this.showScreen('welcome');
     },
 
@@ -437,6 +488,31 @@ let app = {
             const icon = themeBtn.querySelector('i');
             icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
+    },
+
+    validateCustomerName(input) {
+        const customerNameInput = document.getElementById('customerName');
+        if (customerNameInput) {
+            const customerName = customerNameInput.value.trim();
+            if (customerName.length > 0) {
+                customerNameInput.classList.remove('is-invalid');
+                customerNameInput.classList.add('is-valid');
+                this.customerName = customerName;
+            } else {
+                customerNameInput.classList.remove('is-valid');
+                customerNameInput.classList.add('is-invalid');
+                this.customerName = '';
+            }
+        }
+    },
+
+    validateAndProceedToPayment() {
+        const customerNameInput = document.getElementById('customerName');
+        if (!customerNameInput || !this.customerName) {
+            this.showToast('Por favor, insira o nome do cliente.', 'warning');
+            return;
+        }
+        this.showScreen('payment');
     }
 };
 

@@ -39,6 +39,9 @@
                     <button class="theme-btn" id="themeBtn">
                         <i class="fas fa-moon"></i>
                     </button>
+                    <a href="admin.html" class="admin-link" title="Área Administrativa">
+                        <i class="fas fa-cog"></i>
+                    </a>
                 </div>
             </div>
         </header>
@@ -60,10 +63,6 @@
                         <button class="btn-primary btn-large" id="startOrderBtn">
                             <i class="fas fa-utensils"></i>
                             Fazer Pedido
-                        </button>
-                        <button class="btn-secondary btn-large" id="viewMenuBtn">
-                            <i class="fas fa-list"></i>
-                            Ver Cardápio
                         </button>
                     </div>
 
@@ -162,10 +161,58 @@
                     </div>
 
                     <div class="cart-actions">
-                        <button class="btn-primary btn-large" id="proceedToPaymentBtn">
-                            <i class="fas fa-credit-card"></i>
-                            Ir para Pagamento
+                        <button class="btn-primary btn-large" id="proceedToCustomerInfoBtn">
+                            <i class="fas fa-user"></i>
+                            Continuar
                         </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Info Screen -->
+            <section id="customer-info-screen" class="screen">
+                <div class="customer-info-header">
+                    <button class="back-btn" id="backToCart">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2>Informações do Cliente</h2>
+                </div>
+
+                <div class="customer-info-content">
+                    <div class="customer-info-form">
+                        <div class="form-group">
+                            <label for="customerName" class="form-label">
+                                <i class="fas fa-user"></i>
+                                Nome Completo *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="customerName" 
+                                class="form-input" 
+                                placeholder="Digite seu nome completo"
+                                required
+                                maxlength="50"
+                            >
+                            <div class="form-help">Seu nome será usado para chamar quando o pedido estiver pronto</div>
+                        </div>
+
+                        <div class="order-summary-preview">
+                            <h3>Resumo do Pedido</h3>
+                            <div class="preview-items" id="customerInfoOrderPreview">
+                                <!-- Order preview will be loaded here -->
+                            </div>
+                            <div class="preview-total">
+                                <span>Total:</span>
+                                <span id="customerInfoTotal">R$ 0,00</span>
+                            </div>
+                        </div>
+
+                        <div class="customer-info-actions">
+                            <button class="btn-primary btn-large" id="proceedToPaymentBtn">
+                                <i class="fas fa-credit-card"></i>
+                                Ir para Pagamento
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -173,7 +220,7 @@
             <!-- Payment Screen -->
             <section id="payment-screen" class="screen">
                 <div class="payment-header">
-                    <button class="back-btn" id="backToCart">
+                    <button class="back-btn" id="backToCustomerInfo">
                         <i class="fas fa-arrow-left"></i>
                     </button>
                     <h2>Pagamento</h2>
@@ -182,6 +229,12 @@
                 <div class="payment-content">
                     <div class="order-summary">
                         <h3>Resumo do Pedido</h3>
+                        <div class="customer-info-display">
+                            <div class="customer-name">
+                                <i class="fas fa-user"></i>
+                                <span id="paymentCustomerName">Cliente</span>
+                            </div>
+                        </div>
                         <div class="order-items" id="orderSummaryItems">
                             <!-- Order summary will be loaded here -->
                         </div>

@@ -473,3 +473,154 @@ if (typeof module !== 'undefined' && module.exports) {
         Utils
     };
 }
+
+// ===== ADMIN DATA =====
+const ADMIN_DATA = {
+    // Sample employees data
+    employees: [
+        {
+            id: 1,
+            name: 'João Silva',
+            email: 'joao@coffeehouse.com',
+            phone: '(11) 99999-1111',
+            role: 'barista',
+            status: 'active',
+            hireDate: '2023-01-15'
+        },
+        {
+            id: 2,
+            name: 'Maria Santos',
+            email: 'maria@coffeehouse.com',
+            phone: '(11) 99999-2222',
+            role: 'cashier',
+            status: 'active',
+            hireDate: '2023-02-20'
+        },
+        {
+            id: 3,
+            name: 'Pedro Costa',
+            email: 'pedro@coffeehouse.com',
+            phone: '(11) 99999-3333',
+            role: 'manager',
+            status: 'active',
+            hireDate: '2022-11-10'
+        }
+    ],
+
+    // Sample inventory data
+    inventory: [
+        {
+            id: 1,
+            name: 'Café Arábica',
+            category: 'coffees',
+            price: 25.90,
+            stock: 50,
+            minStock: 10,
+            description: 'Café arábica premium'
+        },
+        {
+            id: 2,
+            name: 'Leite Integral',
+            category: 'others',
+            price: 8.50,
+            stock: 30,
+            minStock: 15,
+            description: 'Leite integral fresco'
+        },
+        {
+            id: 3,
+            name: 'Açúcar Refinado',
+            category: 'others',
+            price: 5.90,
+            stock: 5,
+            minStock: 10,
+            description: 'Açúcar refinado 1kg'
+        },
+        {
+            id: 4,
+            name: 'Chocolate Belga',
+            category: 'others',
+            price: 15.90,
+            stock: 20,
+            minStock: 8,
+            description: 'Chocolate belga para bebidas'
+        }
+    ],
+
+    // Sample transactions data
+    transactions: [
+        {
+            id: 1,
+            type: 'revenue',
+            amount: 150.00,
+            description: 'Vendas do dia',
+            date: new Date().toISOString(),
+            category: 'sales'
+        },
+        {
+            id: 2,
+            type: 'expense',
+            amount: 45.00,
+            description: 'Compra de insumos',
+            date: new Date().toISOString(),
+            category: 'inventory'
+        },
+        {
+            id: 3,
+            type: 'revenue',
+            amount: 89.50,
+            description: 'Vendas da manhã',
+            date: new Date(Date.now() - 86400000).toISOString(),
+            category: 'sales'
+        },
+        {
+            id: 4,
+            type: 'expense',
+            amount: 120.00,
+            description: 'Pagamento de fornecedor',
+            date: new Date(Date.now() - 172800000).toISOString(),
+            category: 'supplier'
+        }
+    ],
+
+    // Sample sales data
+    sales: [
+        {
+            id: 1,
+            productName: 'Cappuccino',
+            quantity: 25,
+            revenue: 172.50,
+            date: new Date().toISOString(),
+            customerName: 'Cliente'
+        },
+        {
+            id: 2,
+            productName: 'Espresso',
+            quantity: 15,
+            revenue: 67.50,
+            date: new Date().toISOString(),
+            customerName: 'Cliente'
+        },
+        {
+            id: 3,
+            productName: 'Latte',
+            quantity: 12,
+            revenue: 90.00,
+            date: new Date(Date.now() - 86400000).toISOString(),
+            customerName: 'Cliente'
+        },
+        {
+            id: 4,
+            productName: 'Brownie',
+            quantity: 8,
+            revenue: 71.20,
+            date: new Date(Date.now() - 86400000).toISOString(),
+            customerName: 'Cliente'
+        }
+    ]
+};
+
+// Make admin data globally available
+if (typeof window !== 'undefined') {
+    window.ADMIN_DATA = ADMIN_DATA;
+}

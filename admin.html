@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffeeHouse - Área Administrativa</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="coffee-logo">
+                <i class="fas fa-coffee"></i>
+            </div>
+            <h2>CoffeeHouse Admin</h2>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <div class="logo-section">
+                    <i class="fas fa-coffee logo-icon"></i>
+                    <h1 class="logo-text">CoffeeHouse</h1>
+                </div>
+                <span class="admin-badge">Admin</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#employees" class="nav-link" data-section="employees">
+                            <i class="fas fa-users"></i>
+                            <span>Funcionários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#inventory" class="nav-link" data-section="inventory">
+                            <i class="fas fa-boxes"></i>
+                            <span>Estoque</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#financial" class="nav-link" data-section="financial">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Financeiro</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sales" class="nav-link" data-section="sales">
+                            <i class="fas fa-receipt"></i>
+                            <span>Vendas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#metrics" class="nav-link" data-section="metrics">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Métricas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings" class="nav-link" data-section="settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">Administrador</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-content">
+                    <div class="header-left">
+                        <button class="sidebar-toggle" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h2 class="page-title" id="pageTitle">Dashboard</h2>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-actions">
+                            <button class="theme-btn" id="themeBtn">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                            <div class="notifications">
+                                <button class="notification-btn" id="notificationBtn">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="notification-badge" id="notificationBadge">3</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="dashboard-grid">
+                        <!-- Quick Stats -->
+                        <div class="stats-cards">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 class="stat-value" id="todayOrders">0</h3>
+                                    <p class="stat-label">Pedidos Hoje</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 class="stat-value" id="todayRevenue">R$ 0,00</h3>
+                                    <p class="stat-label">Receita Hoje</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 class="stat-value" id="activeEmployees">0</h3>
+                                    <p class="stat-label">Funcionários Ativos</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 class="stat-value" id="lowStockItems">0</h3>
+                                    <p class="stat-label">Itens com Baixo Estoque</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Charts -->
+                        <div class="charts-section">
+                            <div class="chart-container">
+                                <h3>Vendas dos Últimos 7 Dias</h3>
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                            <div class="chart-container">
+                                <h3>Produtos Mais Vendidos</h3>
+                                <canvas id="productsChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Recent Orders -->
+                        <div class="recent-orders">
+                            <div class="section-header">
+                                <h3>Pedidos Recentes</h3>
+                                <a href="#orders" class="view-all-btn">Ver Todos</a>
+                            </div>
+                            <div class="orders-list" id="recentOrdersList">
+                                <!-- Recent orders will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Employees Section -->
+                <section id="employees-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Gerenciar Funcionários</h2>
+                        <button class="btn-primary" id="addEmployeeBtn">
+                            <i class="fas fa-plus"></i>
+                            Adicionar Funcionário
+                        </button>
+                    </div>
+
+                    <div class="employees-grid" id="employeesGrid">
+                        <!-- Employees will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Inventory Section -->
+                <section id="inventory-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Gerenciar Estoque</h2>
+                        <button class="btn-primary" id="addItemBtn">
+                            <i class="fas fa-plus"></i>
+                            Adicionar Item
+                        </button>
+                    </div>
+
+                    <div class="inventory-filters">
+                        <div class="filter-group">
+                            <label for="categoryFilter">Categoria:</label>
+                            <select id="categoryFilter" class="form-select">
+                                <option value="">Todas</option>
+                                <option value="coffees">Cafés</option>
+                                <option value="cold-drinks">Bebidas Geladas</option>
+                                <option value="sweets">Doces</option>
+                                <option value="savory">Salgados</option>
+                                <option value="others">Outros</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="stockFilter">Status do Estoque:</label>
+                            <select id="stockFilter" class="form-select">
+                                <option value="">Todos</option>
+                                <option value="low">Baixo Estoque</option>
+                                <option value="out">Sem Estoque</option>
+                                <option value="normal">Normal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="inventory-grid" id="inventoryGrid">
+                        <!-- Inventory items will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Financial Section -->
+                <section id="financial-section" class="content-section">
+                    <div class="financial-overview">
+                        <div class="financial-cards">
+                            <div class="financial-card">
+                                <h3>Receita Total</h3>
+                                <p class="financial-value" id="totalRevenue">R$ 0,00</p>
+                                <span class="financial-period">Este mês</span>
+                            </div>
+                            <div class="financial-card">
+                                <h3>Despesas</h3>
+                                <p class="financial-value" id="totalExpenses">R$ 0,00</p>
+                                <span class="financial-period">Este mês</span>
+                            </div>
+                            <div class="financial-card">
+                                <h3>Lucro</h3>
+                                <p class="financial-value" id="totalProfit">R$ 0,00</p>
+                                <span class="financial-period">Este mês</span>
+                            </div>
+                            <div class="financial-card">
+                                <h3>Margem de Lucro</h3>
+                                <p class="financial-value" id="profitMargin">0%</p>
+                                <span class="financial-period">Este mês</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="financial-charts">
+                        <div class="chart-container">
+                            <h3>Receita vs Despesas</h3>
+                            <canvas id="financialChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Fluxo de Caixa</h3>
+                            <canvas id="cashFlowChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="transactions-section">
+                        <div class="section-header">
+                            <h3>Transações Recentes</h3>
+                            <button class="btn-secondary" id="exportTransactionsBtn">
+                                <i class="fas fa-download"></i>
+                                Exportar
+                            </button>
+                        </div>
+                        <div class="transactions-table" id="transactionsTable">
+                            <!-- Transactions will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sales Section -->
+                <section id="sales-section" class="content-section">
+                    <div class="sales-filters">
+                        <div class="filter-group">
+                            <label for="dateRange">Período:</label>
+                            <select id="dateRange" class="form-select">
+                                <option value="today">Hoje</option>
+                                <option value="week">Esta Semana</option>
+                                <option value="month" selected>Este Mês</option>
+                                <option value="quarter">Este Trimestre</option>
+                                <option value="year">Este Ano</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="productFilter">Produto:</label>
+                            <select id="productFilter" class="form-select">
+                                <option value="">Todos os Produtos</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <button class="btn-primary" id="generateReportBtn">
+                                <i class="fas fa-chart-bar"></i>
+                                Gerar Relatório
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="sales-summary">
+                        <div class="summary-cards">
+                            <div class="summary-card">
+                                <h4>Total de Vendas</h4>
+                                <p id="totalSales">0</p>
+                            </div>
+                            <div class="summary-card">
+                                <h4>Receita Total</h4>
+                                <p id="salesRevenue">R$ 0,00</p>
+                            </div>
+                            <div class="summary-card">
+                                <h4>Ticket Médio</h4>
+                                <p id="averageTicket">R$ 0,00</p>
+                            </div>
+                            <div class="summary-card">
+                                <h4>Produtos Vendidos</h4>
+                                <p id="productsSold">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sales-details">
+                        <div class="section-header">
+                            <h3>Extrato de Produtos Vendidos</h3>
+                            <button class="btn-secondary" id="exportSalesBtn">
+                                <i class="fas fa-file-excel"></i>
+                                Exportar Excel
+                            </button>
+                        </div>
+                        <div class="sales-table" id="salesTable">
+                            <!-- Sales data will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Metrics Section -->
+                <section id="metrics-section" class="content-section">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <h3>Performance de Vendas</h3>
+                            <div class="metric-chart">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Horários de Pico</h3>
+                            <div class="metric-chart">
+                                <canvas id="peakHoursChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Produtos Mais Populares</h3>
+                            <div class="metric-chart">
+                                <canvas id="popularProductsChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Análise de Clientes</h3>
+                            <div class="metric-chart">
+                                <canvas id="customerAnalysisChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings-section" class="content-section">
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <h3>Configurações Gerais</h3>
+                            <form class="settings-form" id="generalSettingsForm">
+                                <div class="form-group">
+                                    <label for="storeName">Nome da Loja</label>
+                                    <input type="text" id="storeName" class="form-input" value="CoffeeHouse">
+                                </div>
+                                <div class="form-group">
+                                    <label for="storeAddress">Endereço</label>
+                                    <input type="text" id="storeAddress" class="form-input" value="Rua das Flores, 123">
+                                </div>
+                                <div class="form-group">
+                                    <label for="storePhone">Telefone</label>
+                                    <input type="tel" id="storePhone" class="form-input" value="(11) 99999-9999">
+                                </div>
+                                <div class="form-group">
+                                    <label for="storeEmail">Email</label>
+                                    <input type="email" id="storeEmail" class="form-input" value="contato@coffeehouse.com">
+                                </div>
+                                <button type="submit" class="btn-primary">Salvar Configurações</button>
+                            </form>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Configurações de Sistema</h3>
+                            <form class="settings-form" id="systemSettingsForm">
+                                <div class="form-group">
+                                    <label for="currency">Moeda</label>
+                                    <select id="currency" class="form-select">
+                                        <option value="BRL" selected>Real (R$)</option>
+                                        <option value="USD">Dólar ($)</option>
+                                        <option value="EUR">Euro (€)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="timezone">Fuso Horário</label>
+                                    <select id="timezone" class="form-select">
+                                        <option value="America/Sao_Paulo" selected>Brasília (GMT-3)</option>
+                                        <option value="America/New_York">Nova York (GMT-5)</option>
+                                        <option value="Europe/London">Londres (GMT+0)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="language">Idioma</label>
+                                    <select id="language" class="form-select">
+                                        <option value="pt-BR" selected>Português</option>
+                                        <option value="en-US">English</option>
+                                        <option value="es-ES">Español</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn-primary">Salvar Configurações</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Employee Modal -->
+    <div id="employeeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="employeeModalTitle">Adicionar Funcionário</h3>
+                <button class="modal-close" id="closeEmployeeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="employeeForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="employeeName">Nome Completo</label>
+                            <input type="text" id="employeeName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeEmail">Email</label>
+                            <input type="email" id="employeeEmail" class="form-input" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="employeePhone">Telefone</label>
+                            <input type="tel" id="employeePhone" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeRole">Cargo</label>
+                            <select id="employeeRole" class="form-select" required>
+                                <option value="">Selecione um cargo</option>
+                                <option value="barista">Barista</option>
+                                <option value="cashier">Caixa</option>
+                                <option value="manager">Gerente</option>
+                                <option value="admin">Administrador</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeStatus">Status</label>
+                        <select id="employeeStatus" class="form-select" required>
+                            <option value="active" selected>Ativo</option>
+                            <option value="inactive">Inativo</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelEmployeeBtn">Cancelar</button>
+                <button class="btn-primary" id="saveEmployeeBtn">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory Modal -->
+    <div id="inventoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="inventoryModalTitle">Adicionar Item</h3>
+                <button class="modal-close" id="closeInventoryModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="inventoryForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="itemName">Nome do Item</label>
+                            <input type="text" id="itemName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemCategory">Categoria</label>
+                            <select id="itemCategory" class="form-select" required>
+                                <option value="">Selecione uma categoria</option>
+                                <option value="coffees">Cafés</option>
+                                <option value="cold-drinks">Bebidas Geladas</option>
+                                <option value="sweets">Doces</option>
+                                <option value="savory">Salgados</option>
+                                <option value="others">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="itemPrice">Preço</label>
+                            <input type="number" id="itemPrice" class="form-input" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemStock">Quantidade em Estoque</label>
+                            <input type="number" id="itemStock" class="form-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemDescription">Descrição</label>
+                        <textarea id="itemDescription" class="form-input" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelInventoryBtn">Cancelar</button>
+                <button class="btn-primary" id="saveInventoryBtn">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

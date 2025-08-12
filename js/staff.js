@@ -68,6 +68,12 @@ let staffApp = {
                     <div class="order-number">${order.number}</div>
                     <div class="order-time">${this.getTimeAgo(order.timestamp)}</div>
                 </div>
+                ${order.customerName ? `
+                    <div class="order-customer">
+                        <i class="fas fa-user"></i>
+                        <span>${order.customerName}</span>
+                    </div>
+                ` : ''}
                 <div class="order-items">
                     ${order.items.map(item => `
                         <div class="order-item">
@@ -97,6 +103,12 @@ let staffApp = {
                 <div class="order-details-number">${order.number}</div>
                 <div class="order-details-time">${this.getTimeAgo(order.timestamp)}</div>
             </div>
+            ${order.customerName ? `
+                <div class="order-details-customer">
+                    <i class="fas fa-user"></i>
+                    <span>${order.customerName}</span>
+                </div>
+            ` : ''}
             <div class="order-details-items">
                 ${order.items.map(item => `
                     <div class="order-details-item">
