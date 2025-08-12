@@ -378,7 +378,18 @@
     font-weight: 600;
 }
 
-/* ===== RECENT ORDERS ===== */
+/* Fix chart canvas infinite growth in dashboard */
+.charts-section .chart-container {
+    position: relative;
+}
+.charts-section .chart-container canvas {
+    display: block;
+    width: 100%;
+    height: 300px !important;
+    max-height: 300px;
+}
+ 
+ /* ===== RECENT ORDERS ===== */
 .recent-orders {
     background-color: var(--bg-primary);
     border-radius: var(--radius-lg);
