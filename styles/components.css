@@ -385,6 +385,31 @@
     font-size: var(--font-size-xl);
 }
 
+/* ===== EMPTY CART ===== */
+.empty-cart {
+    text-align: center;
+    padding: var(--spacing-xxl) var(--spacing-lg);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-xl) 0;
+}
+
+.empty-cart i {
+    display: block;
+    margin: 0 auto var(--spacing-lg);
+    opacity: 0.5;
+}
+
+.empty-cart p {
+    color: var(--text-secondary);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.empty-cart .btn-primary {
+    margin: 0 auto;
+}
+
 /* ===== PAYMENT SCREEN COMPONENTS ===== */
 .payment-header {
     display: flex;
