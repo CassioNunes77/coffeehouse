@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffeeHouse - Área do Funcionário</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/staff.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="coffee-logo">
+                <i class="fas fa-coffee"></i>
+            </div>
+            <h2>CoffeeHouse</h2>
+            <p>Área do Funcionário</p>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-coffee logo-icon"></i>
+                    <h1 class="logo-text">CoffeeHouse - Staff</h1>
+                </div>
+                <div class="header-actions">
+                    <div class="status-indicator">
+                        <i class="fas fa-circle status-dot"></i>
+                        <span id="connectionStatus">Conectado</span>
+                    </div>
+                    <button class="theme-btn" id="themeBtn">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="sound-btn" id="soundBtn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard -->
+            <section id="dashboard-screen" class="screen active">
+                <div class="dashboard-header">
+                    <h2>Painel de Pedidos</h2>
+                    <div class="dashboard-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Pendentes: <strong id="pendingCount">0</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Em Preparo: <strong id="preparingCount">0</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-check"></i>
+                            <span>Prontos: <strong id="readyCount">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="orders-container">
+                    <!-- New Orders Section -->
+                    <div class="orders-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-bell"></i>
+                            Novos Pedidos
+                            <span class="badge" id="newOrdersBadge">0</span>
+                        </h3>
+                        <div class="orders-grid" id="newOrdersGrid">
+                            <!-- New orders will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Preparing Orders Section -->
+                    <div class="orders-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-cog fa-spin"></i>
+                            Em Preparo
+                            <span class="badge" id="preparingOrdersBadge">0</span>
+                        </h3>
+                        <div class="orders-grid" id="preparingOrdersGrid">
+                            <!-- Preparing orders will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Ready Orders Section -->
+                    <div class="orders-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-check-circle"></i>
+                            Prontos para Retirada
+                            <span class="badge" id="readyOrdersBadge">0</span>
+                        </h3>
+                        <div class="orders-grid" id="readyOrdersGrid">
+                            <!-- Ready orders will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Order Details Modal -->
+            <div id="orderModal" class="modal">
+                <div class="modal-overlay">
+                    <div class="modal-content order-details-modal">
+                        <div class="modal-header">
+                            <h3>Detalhes do Pedido</h3>
+                            <button class="modal-close" onclick="staffApp.closeOrderModal()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="orderModalBody">
+                            <!-- Order details will be loaded here -->
+                        </div>
+                        <div class="modal-footer" id="orderModalFooter">
+                            <!-- Action buttons will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Modal -->
+            <div id="settingsModal" class="modal">
+                <div class="modal-overlay">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Configurações</h3>
+                            <button class="modal-close" onclick="staffApp.closeSettingsModal()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="settings-section">
+                                <h4>Notificações</h4>
+                                <div class="setting-item">
+                                    <label>
+                                        <input type="checkbox" id="soundEnabled" checked>
+                                        Som de notificação
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label>
+                                        <input type="checkbox" id="autoRefresh" checked>
+                                        Atualização automática
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h4>Display</h4>
+                                <div class="setting-item">
+                                    <label>
+                                        <input type="checkbox" id="darkMode">
+                                        Modo escuro
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Floating Action Button -->
+        <div class="floating-action-btn" id="settingsBtn">
+            <i class="fas fa-cog"></i>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <!-- Audio for notifications -->
+    <audio id="notificationSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/staff.js"></script>
+</body>
+</html>

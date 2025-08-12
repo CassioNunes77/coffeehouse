@@ -299,9 +299,47 @@ let app = {
         setTimeout(() => {
             const orderNumber = Utils.generateOrderNumber();
             document.getElementById('orderNumber').textContent = orderNumber;
+            
+            // Send order to staff area
+            this.sendOrderToStaff(orderNumber);
+            
             this.showScreen('confirmation');
             this.clearCart();
         }, 2000);
+    },
+
+    sendOrderToStaff(orderNumber) {
+        // Get selected payment method
+        const selectedMethod = document.querySelector('.payment-option.active');
+        const paymentMethod = selectedMethod ? selectedMethod.dataset.method : 'Cartão';
+        
+        // Prepare order data
+        const orderData = {
+            items: this.cart.map(item => ({
+                name: item.name,
+                quantity: item.quantity,
+                price: item.price
+            })),
+            total: this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+            paymentMethod: paymentMethod
+        };
+
+        // Save order to localStorage for staff area
+        const existingOrders = JSON.parse(localStorage.getItem('coffeehouse_orders') || '[]');
+        const newOrder = {
+            id: Date.now(),
+            number: orderNumber,
+            status: 'new',
+            items: orderData.items,
+            total: orderData.total,
+            timestamp: new Date().toISOString(),
+            paymentMethod: orderData.paymentMethod
+        };
+        
+        existingOrders.unshift(newOrder);
+        localStorage.setItem('coffeehouse_orders', JSON.stringify(existingOrders));
+        
+        this.showToast(`Pedido ${orderNumber} enviado para preparo!`, 'success');
     },
 
     startNewOrder() {
