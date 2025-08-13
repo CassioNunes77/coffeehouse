@@ -141,6 +141,12 @@ const PAYMENT_METHODS = [
         description: "Apple Pay ou Google Pay"
     },
     {
+        id: "bitcoin",
+        name: "Bitcoin",
+        icon: "fab fa-bitcoin",
+        description: "Pagamento com criptomoeda"
+    },
+    {
         id: "cash",
         name: "Dinheiro",
         icon: "fas fa-money-bill-wave",
