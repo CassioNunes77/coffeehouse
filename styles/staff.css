@@ -270,7 +270,19 @@
 .order-details-modal {
     max-width: 600px;
     width: 90%;
+    max-height: 80vh;
     animation: modalSlideIn 0.3s ease-out;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    transition: all var(--transition-normal);
+}
+
+.modal.active .order-details-modal {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
 }
 
 @keyframes modalSlideIn {
@@ -493,7 +505,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
     align-items: center;
@@ -501,6 +513,8 @@
     z-index: 9999;
     opacity: 0;
     transition: opacity var(--transition-normal);
+    padding: var(--spacing-lg);
+    box-sizing: border-box;
 }
 
 .modal.active {
@@ -514,6 +528,9 @@
     left: 0;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-content {
@@ -521,13 +538,14 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
     max-width: 90%;
-    max-height: 90%;
+    max-height: 90vh;
     overflow-y: auto;
     position: relative;
     z-index: 10000;
     transform: scale(0.8);
     opacity: 0;
     transition: all var(--transition-normal);
+    margin: auto;
 }
 
 .modal.active .modal-content {
@@ -652,15 +670,25 @@
         padding: var(--spacing-sm);
     }
     
+    .modal {
+        padding: var(--spacing-sm);
+    }
+    
     .modal-content {
-        margin: var(--spacing-md);
-        max-width: calc(100% - 2rem);
-        max-height: calc(100% - 2rem);
+        margin: 0;
+        max-width: 100%;
+        max-height: calc(100vh - 2rem);
     }
     
     .order-details-modal {
-        width: 95%;
+        width: 100%;
         max-width: none;
+        max-height: calc(100vh - 2rem);
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    
+    .modal.active .order-details-modal {
+        transform: translate(-50%, -50%) scale(1);
     }
     
     .modal-header {
@@ -677,14 +705,24 @@
 }
 
 @media (max-width: 320px) {
+    .modal {
+        padding: var(--spacing-xs);
+    }
+    
     .modal-content {
-        margin: var(--spacing-sm);
-        max-width: calc(100% - 1rem);
-        max-height: calc(100% - 1rem);
+        margin: 0;
+        max-width: 100%;
+        max-height: calc(100vh - 1rem);
     }
     
     .order-details-modal {
-        width: 98%;
+        width: 100%;
+        max-height: calc(100vh - 1rem);
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+    
+    .modal.active .order-details-modal {
+        transform: translate(-50%, -50%) scale(1);
     }
     
     .modal-header {
