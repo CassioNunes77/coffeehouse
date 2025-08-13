@@ -562,33 +562,28 @@ let adminApp = {
         this.updateProductsChart();
     },
 
-    // Função para forçar atualização dos gráficos (usada quando novos dados são adicionados)
-    forceUpdateCharts() {
+    // Função para limpar cache dos gráficos
+    clearChartsCache() {
         if (this.charts.sales) {
-            delete this.charts.sales.lastUpdate;
             delete this.charts.sales.lastData;
         }
         if (this.charts.products) {
-            delete this.charts.products.lastUpdate;
             delete this.charts.products.lastData;
         }
         if (this.charts.financial) {
-            delete this.charts.financial.lastUpdate;
             delete this.charts.financial.lastData;
         }
-        
+    },
+
+    // Função para forçar atualização dos gráficos (usada quando novos dados são adicionados)
+    forceUpdateCharts() {
+        this.clearChartsCache();
         this.updateCharts();
         this.updateFinancialCharts();
     },
 
     updateSalesChart() {
         if (!this.charts.sales) return;
-
-        // Verificar se já temos dados atuais para evitar atualizações desnecessárias
-        const currentDate = new Date().toDateString();
-        if (this.charts.sales.lastUpdate === currentDate) {
-            return; // Já foi atualizado hoje
-        }
 
         const last7Days = [];
         const salesData = [];
@@ -606,27 +601,20 @@ let adminApp = {
             salesData.push(daySales);
         }
 
-        // Atualizar apenas se os dados mudaram
+        // Atualizar apenas se os dados mudaram ou se não há cache
         const currentData = JSON.stringify(salesData);
-        if (this.charts.sales.lastData !== currentData) {
+        if (!this.charts.sales.lastData || this.charts.sales.lastData !== currentData) {
             this.charts.sales.data.labels = last7Days;
             this.charts.sales.data.datasets[0].data = salesData;
             this.charts.sales.update();
             
             // Marcar como atualizado
-            this.charts.sales.lastUpdate = currentDate;
             this.charts.sales.lastData = currentData;
         }
     },
 
     updateProductsChart() {
         if (!this.charts.products) return;
-
-        // Verificar se já temos dados atuais para evitar atualizações desnecessárias
-        const currentDate = new Date().toDateString();
-        if (this.charts.products.lastUpdate === currentDate) {
-            return; // Já foi atualizado hoje
-        }
 
         const productStats = {};
         this.sales.forEach(sale => {
@@ -636,27 +624,20 @@ let adminApp = {
         const labels = Object.keys(productStats);
         const data = Object.values(productStats);
 
-        // Atualizar apenas se os dados mudaram
+        // Atualizar apenas se os dados mudaram ou se não há cache
         const currentData = JSON.stringify(data);
-        if (this.charts.products.lastData !== currentData) {
+        if (!this.charts.products.lastData || this.charts.products.lastData !== currentData) {
             this.charts.products.data.labels = labels;
             this.charts.products.data.datasets[0].data = data;
             this.charts.products.update();
             
             // Marcar como atualizado
-            this.charts.products.lastUpdate = currentDate;
             this.charts.products.lastData = currentData;
         }
     },
 
     updateFinancialCharts() {
         if (!this.charts.financial) return;
-
-        // Verificar se já temos dados atuais para evitar atualizações desnecessárias
-        const currentDate = new Date().toDateString();
-        if (this.charts.financial.lastUpdate === currentDate) {
-            return; // Já foi atualizado hoje
-        }
 
         const currentMonth = new Date().getMonth();
         const currentYear = new Date().getFullYear();
@@ -669,14 +650,13 @@ let adminApp = {
             .filter(t => t.type === 'expense' && new Date(t.date).getMonth() === currentMonth && new Date(t.date).getFullYear() === currentYear)
             .reduce((sum, t) => sum + t.amount, 0);
 
-        // Atualizar apenas se os dados mudaram
+        // Atualizar apenas se os dados mudaram ou se não há cache
         const currentData = JSON.stringify([monthlyRevenue, monthlyExpenses]);
-        if (this.charts.financial.lastData !== currentData) {
+        if (!this.charts.financial.lastData || this.charts.financial.lastData !== currentData) {
             this.charts.financial.data.datasets[0].data = [monthlyRevenue, monthlyExpenses];
             this.charts.financial.update();
             
             // Marcar como atualizado
-            this.charts.financial.lastUpdate = currentDate;
             this.charts.financial.lastData = currentData;
         }
     },
