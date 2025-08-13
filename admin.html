@@ -56,6 +56,13 @@
                             <span>Estoque</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="#statistics" class="nav-link" data-section="statistics">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Estatísticas</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="#financial" class="nav-link" data-section="financial">
                             <i class="fas fa-dollar-sign"></i>
@@ -364,6 +371,129 @@
                     </div>
                 </section>
 
+
+
+                <!-- Statistics Section -->
+                <section id="statistics-section" class="content-section">
+                    <div class="statistics-overview">
+                        <div class="section-header">
+                            <h3>Estatísticas de Desempenho</h3>
+                            <div class="period-selector">
+                                <label for="statsPeriod">Período:</label>
+                                <select id="statsPeriod" class="form-select">
+                                    <option value="today">Hoje</option>
+                                    <option value="week" selected>Esta Semana</option>
+                                    <option value="month">Este Mês</option>
+                                    <option value="quarter">Este Trimestre</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid">
+                            <!-- Production Time Statistics -->
+                            <div class="stats-card">
+                                <h3>Tempo de Produção</h3>
+                                <div class="stats-content">
+                                    <div class="stat-item">
+                                        <div class="stat-label">Tempo Médio por Produto</div>
+                                        <div class="stat-value" id="avgProductionTime">0 min</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Produto Mais Rápido</div>
+                                        <div class="stat-value" id="fastestProduct">-</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Produto Mais Lento</div>
+                                        <div class="stat-value" id="slowestProduct">-</div>
+                                    </div>
+                                </div>
+                                <div class="stats-chart">
+                                    <canvas id="productionTimeChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Order Completion Statistics -->
+                            <div class="stats-card">
+                                <h3>Finalização de Pedidos</h3>
+                                <div class="stats-content">
+                                    <div class="stat-item">
+                                        <div class="stat-label">Tempo Médio de Finalização</div>
+                                        <div class="stat-value" id="avgCompletionTime">0 min</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Pedidos no Prazo</div>
+                                        <div class="stat-value" id="onTimeOrders">0%</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Eficiência Geral</div>
+                                        <div class="stat-value" id="efficiencyRate">0%</div>
+                                    </div>
+                                </div>
+                                <div class="stats-chart">
+                                    <canvas id="completionTimeChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Performance Metrics -->
+                            <div class="stats-card">
+                                <h3>Métricas de Performance</h3>
+                                <div class="stats-content">
+                                    <div class="stat-item">
+                                        <div class="stat-label">Pedidos por Hora</div>
+                                        <div class="stat-value" id="ordersPerHour">0</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Produtividade</div>
+                                        <div class="stat-value" id="productivity">0%</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Satisfação do Cliente</div>
+                                        <div class="stat-value" id="customerSatisfaction">0%</div>
+                                    </div>
+                                </div>
+                                <div class="stats-chart">
+                                    <canvas id="performanceMetricsChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Trend Analysis -->
+                            <div class="stats-card">
+                                <h3>Análise de Tendências</h3>
+                                <div class="stats-content">
+                                    <div class="stat-item">
+                                        <div class="stat-label">Melhoria vs Semana Passada</div>
+                                        <div class="stat-value" id="improvementRate">0%</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Horário de Pico</div>
+                                        <div class="stat-value" id="peakHour">-</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Dia Mais Movimentado</div>
+                                        <div class="stat-value" id="busiestDay">-</div>
+                                    </div>
+                                </div>
+                                <div class="stats-chart">
+                                    <canvas id="trendAnalysisChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detailed-stats">
+                            <div class="section-header">
+                                <h3>Estatísticas Detalhadas</h3>
+                                <button class="btn-secondary" id="exportStatsBtn">
+                                    <i class="fas fa-file-excel"></i>
+                                    Exportar Relatório
+                                </button>
+                            </div>
+                            <div class="stats-table" id="detailedStatsTable">
+                                <!-- Detailed statistics will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Metrics Section -->
                 <section id="metrics-section" class="content-section">
                     <div class="metrics-grid">
@@ -560,6 +690,8 @@
             </div>
         </div>
     </div>
+
+
 
     <!-- Toast Notifications -->
     <div id="toast-container" class="toast-container"></div>

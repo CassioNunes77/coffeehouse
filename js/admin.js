@@ -5,6 +5,8 @@ let adminApp = {
     inventory: [],
     transactions: [],
     sales: [],
+
+    statistics: {},
     charts: {},
     
     init() {
@@ -47,6 +49,12 @@ let adminApp = {
         document.getElementById('saveInventoryBtn')?.addEventListener('click', () => this.saveInventoryItem());
         document.getElementById('cancelInventoryBtn')?.addEventListener('click', () => this.closeInventoryModal());
         document.getElementById('closeInventoryModal')?.addEventListener('click', () => this.closeInventoryModal());
+
+
+
+        // Statistics
+        document.getElementById('statsPeriod')?.addEventListener('change', () => this.loadStatistics());
+        document.getElementById('exportStatsBtn')?.addEventListener('click', () => this.exportStatistics());
 
         // Filters
         document.getElementById('categoryFilter')?.addEventListener('change', () => this.filterInventory());
@@ -98,6 +106,8 @@ let adminApp = {
             dashboard: 'Dashboard',
             employees: 'Funcionários',
             inventory: 'Estoque',
+
+            statistics: 'Estatísticas',
             financial: 'Financeiro',
             sales: 'Vendas',
             metrics: 'Métricas',
