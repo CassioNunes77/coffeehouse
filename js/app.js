@@ -204,6 +204,7 @@ let app = {
                     </button>
                 </div>
             `;
+            this.updateCartSummary(); // Atualizar valores quando carrinho está vazio
             return;
         }
 
@@ -268,8 +269,16 @@ let app = {
 
     updateCartSummary() {
         const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        document.getElementById('subtotal').textContent = Utils.formatCurrency(subtotal);
-        document.getElementById('totalAmount').textContent = Utils.formatCurrency(subtotal);
+        
+        const subtotalElement = document.getElementById('subtotal');
+        const totalElement = document.getElementById('totalAmount');
+        
+        if (subtotalElement) {
+            subtotalElement.textContent = Utils.formatCurrency(subtotal);
+        }
+        if (totalElement) {
+            totalElement.textContent = Utils.formatCurrency(subtotal);
+        }
     },
 
     loadPaymentSummary() {
