@@ -258,8 +258,10 @@ body {
     visibility: hidden;
     transform: translateX(100%);
     transition: all var(--transition-normal);
-    overflow-y: auto;
+    overflow: hidden;
     padding: var(--spacing-lg) var(--container-padding);
+    display: flex;
+    flex-direction: column;
 }
 
 .screen.active {
@@ -455,6 +457,10 @@ body {
         --header-height: 60px;
     }
     
+    .screen {
+        padding: var(--spacing-md) var(--container-padding);
+    }
+    
     .welcome-title {
         font-size: var(--font-size-3xl);
     }
@@ -489,8 +495,12 @@ body {
         font-size: var(--font-size-lg);
     }
     
+    .screen {
+        padding: var(--spacing-sm) var(--container-padding);
+    }
+    
     .welcome-content {
-        padding: var(--spacing-xl) 0;
+        padding: var(--spacing-lg) 0;
     }
     
     .welcome-title {
