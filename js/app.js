@@ -24,7 +24,7 @@ let app = {
 
         // Cart actions
         document.getElementById('clearCartBtn')?.addEventListener('click', () => this.clearCart());
-        document.getElementById('proceedToCustomerInfoBtn')?.addEventListener('click', () => this.showScreen('customer-info'));
+        document.getElementById('proceedToCustomerInfoBtn')?.addEventListener('click', () => this.validateCartAndProceed());
 
         // Customer info
         document.getElementById('backToCart')?.addEventListener('click', () => this.showScreen('cart'));
@@ -279,6 +279,15 @@ let app = {
         if (totalElement) {
             totalElement.textContent = Utils.formatCurrency(subtotal);
         }
+    },
+
+    validateCartAndProceed() {
+        if (this.cart.length === 0) {
+            this.showToast('Seu carrinho está vazio! Adicione produtos antes de continuar.', 'warning');
+            return;
+        }
+        
+        this.showScreen('customer-info');
     },
 
     loadPaymentSummary() {
