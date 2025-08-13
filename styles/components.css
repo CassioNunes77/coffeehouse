@@ -630,6 +630,13 @@
     font-size: var(--font-size-lg);
 }
 
+.confirmation-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--spacing-xl);
+}
+
 /* ===== TOAST NOTIFICATIONS ===== */
 .toast-container {
     position: fixed;
