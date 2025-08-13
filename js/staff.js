@@ -1,14 +1,13 @@
 // Staff App - Área do Funcionário
 let staffApp = {
     orders: [],
-    settings: { soundEnabled: true, autoRefresh: true },
+    settings: { soundEnabled: true },
     
     init() {
         this.loadSettings();
         this.setupEventListeners();
         this.hideLoading();
         this.loadOrders();
-        this.startAutoRefresh();
     },
 
     setupEventListeners() {
@@ -284,11 +283,7 @@ let staffApp = {
         }
     },
 
-    startAutoRefresh() {
-        setInterval(() => {
-            this.loadOrders();
-        }, 5000);
-    },
+
 
     showToast(message, type = 'info') {
         const toast = document.createElement('div');
