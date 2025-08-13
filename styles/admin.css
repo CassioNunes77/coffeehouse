@@ -369,6 +369,18 @@
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    min-height: 450px;
+    max-height: 450px;
+}
+
+.chart-container canvas {
+    max-width: 100%;
+    max-height: 400px;
+    width: 100% !important;
+    height: 400px !important;
+    object-fit: contain;
 }
 
 .chart-container h3 {
@@ -660,6 +672,14 @@
     margin-bottom: var(--spacing-xl);
 }
 
+.financial-charts canvas {
+    max-width: 100%;
+    max-height: 400px;
+    width: 100% !important;
+    height: 400px !important;
+    object-fit: contain;
+}
+
 .transactions-section {
     background-color: var(--bg-primary);
     border-radius: var(--radius-lg);
@@ -746,6 +766,14 @@
 
 .metric-chart {
     height: 300px;
+}
+
+.metric-chart canvas {
+    max-width: 100%;
+    max-height: 300px;
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: contain;
 }
 
 /* ===== SETTINGS ===== */

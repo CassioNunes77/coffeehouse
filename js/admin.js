@@ -500,6 +500,22 @@ let adminApp = {
                     maintainAspectRatio: false,
                     animation: {
                         duration: 1000
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'R$ ' + value.toFixed(2);
+                                }
+                            }
+                        }
                     }
                 }
             });
@@ -528,6 +544,12 @@ let adminApp = {
                     maintainAspectRatio: false,
                     animation: {
                         duration: 1000
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
                     }
                 }
             });
@@ -551,6 +573,22 @@ let adminApp = {
                     maintainAspectRatio: false,
                     animation: {
                         duration: 1000
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'R$ ' + value.toFixed(2);
+                                }
+                            }
+                        }
                     }
                 }
             });
