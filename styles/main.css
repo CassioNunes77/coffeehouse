@@ -484,6 +484,17 @@ body {
         bottom: var(--spacing-lg);
         right: var(--spacing-lg);
     }
+    
+    .btn-primary,
+    .btn-secondary {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: var(--font-size-sm);
+    }
+    
+    .btn-large {
+        padding: var(--spacing-md) var(--spacing-xl);
+        font-size: var(--font-size-base);
+    }
 }
 
 @media (max-width: 480px) {
@@ -509,6 +520,63 @@ body {
     
     .hero-icon {
         font-size: 3rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: var(--font-size-xs);
+    }
+    
+    .btn-large {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: var(--font-size-sm);
+    }
+    
+    .floating-cart {
+        width: 45px;
+        height: 45px;
+        font-size: var(--font-size-base);
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+    }
+}
+
+@media (max-width: 320px) {
+    :root {
+        --container-padding: var(--spacing-xs);
+        --header-height: 50px;
+    }
+    
+    .screen {
+        padding: var(--spacing-xs) var(--container-padding);
+    }
+    
+    .welcome-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .hero-icon {
+        font-size: 2.5rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-xs);
+    }
+    
+    .btn-large {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-xs);
+    }
+    
+    .floating-cart {
+        width: 40px;
+        height: 40px;
+        font-size: var(--font-size-sm);
+        bottom: var(--spacing-sm);
+        right: var(--spacing-sm);
     }
 }
 
