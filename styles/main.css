@@ -258,7 +258,8 @@ body {
     visibility: hidden;
     transform: translateX(100%);
     transition: all var(--transition-normal);
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: var(--spacing-lg) var(--container-padding);
     display: flex;
     flex-direction: column;
@@ -459,6 +460,8 @@ body {
     
     .screen {
         padding: var(--spacing-md) var(--container-padding);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .welcome-title {
@@ -508,6 +511,8 @@ body {
     
     .screen {
         padding: var(--spacing-sm) var(--container-padding);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .welcome-content {
@@ -550,6 +555,8 @@ body {
     
     .screen {
         padding: var(--spacing-xs) var(--container-padding);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .welcome-title {
