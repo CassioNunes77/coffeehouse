@@ -65,15 +65,17 @@ let staffApp = {
         grid.innerHTML = orders.map(order => `
             <div class="order-card ${order.status}" onclick="staffApp.openOrderModal(${order.id})">
                 <div class="order-header">
-                    <div class="order-number">${order.number}</div>
+                    <div class="order-info">
+                        <div class="order-number">${order.number}</div>
+                        ${order.customerName ? `
+                            <div class="order-customer-name">
+                                <i class="fas fa-user"></i>
+                                <span>${order.customerName}</span>
+                            </div>
+                        ` : ''}
+                    </div>
                     <div class="order-time">${this.getTimeAgo(order.timestamp)}</div>
                 </div>
-                ${order.customerName ? `
-                    <div class="order-customer">
-                        <i class="fas fa-user"></i>
-                        <span>${order.customerName}</span>
-                    </div>
-                ` : ''}
                 <div class="order-items">
                     ${order.items.map(item => `
                         <div class="order-item">
@@ -100,15 +102,17 @@ let staffApp = {
 
         modalBody.innerHTML = `
             <div class="order-details-header">
-                <div class="order-details-number">${order.number}</div>
+                <div class="order-details-info">
+                    <div class="order-details-number">${order.number}</div>
+                    ${order.customerName ? `
+                        <div class="order-details-customer-name">
+                            <i class="fas fa-user"></i>
+                            <span>${order.customerName}</span>
+                        </div>
+                    ` : ''}
+                </div>
                 <div class="order-details-time">${this.getTimeAgo(order.timestamp)}</div>
             </div>
-            ${order.customerName ? `
-                <div class="order-details-customer">
-                    <i class="fas fa-user"></i>
-                    <span>${order.customerName}</span>
-                </div>
-            ` : ''}
             <div class="order-details-items">
                 ${order.items.map(item => `
                     <div class="order-details-item">
