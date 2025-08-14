@@ -597,7 +597,7 @@ const ADMIN_DATA = {
             quantity: 25,
             revenue: 172.50,
             date: new Date().toISOString(),
-            customerName: 'Cliente'
+            customerName: 'Maria Santos'
         },
         {
             id: 2,
@@ -605,7 +605,7 @@ const ADMIN_DATA = {
             quantity: 15,
             revenue: 67.50,
             date: new Date().toISOString(),
-            customerName: 'Cliente'
+            customerName: 'Pedro Oliveira'
         },
         {
             id: 3,
@@ -613,7 +613,7 @@ const ADMIN_DATA = {
             quantity: 12,
             revenue: 90.00,
             date: new Date(Date.now() - 86400000).toISOString(),
-            customerName: 'Cliente'
+            customerName: 'Ana Costa'
         },
         {
             id: 4,
@@ -621,7 +621,7 @@ const ADMIN_DATA = {
             quantity: 8,
             revenue: 71.20,
             date: new Date(Date.now() - 86400000).toISOString(),
-            customerName: 'Cliente'
+            customerName: 'Carlos Ferreira'
         }
     ]
 };

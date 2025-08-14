@@ -33,6 +33,7 @@ let staffApp = {
                     id: 1,
                     number: '#123456',
                     status: 'new',
+                    customerName: 'João Silva',
                     items: [{ name: 'Cappuccino', quantity: 2, price: 6.90 }],
                     total: 13.80,
                     timestamp: new Date().toISOString()

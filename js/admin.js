@@ -253,7 +253,7 @@ let adminApp = {
                 quantity: 25,
                 revenue: 172.50,
                 date: new Date().toISOString(),
-                customerName: 'Cliente'
+                customerName: 'Maria Santos'
             },
             {
                 id: 2,
@@ -261,7 +261,7 @@ let adminApp = {
                 quantity: 15,
                 revenue: 67.50,
                 date: new Date().toISOString(),
-                customerName: 'Cliente'
+                customerName: 'Pedro Oliveira'
             }
         ];
     },
